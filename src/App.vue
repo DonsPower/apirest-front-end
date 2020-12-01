@@ -1,60 +1,37 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
+    <v-top></v-top>    
     <v-main>
-      <HelloWorld/>
+      <button @click="cerrarsesion">
+        Cerrar sesion 
+      </button>
+      
+      <router-view></router-view>
     </v-main>
+    
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import {mapActions} from 'vuex'
+import top from '@/components/Top.vue'
 
 export default {
   name: 'App',
-
-  components: {
-    HelloWorld,
+  components:{
+    'v-top': top
   },
+  methods: {
+    ...mapActions(['leerToken', 'cerrarsesion'])
+  },
+  mounted(){
+    //TODO: ADD EVENTO CLOSE WINDOW
 
-  data: () => ({
-    //
-  }),
+  },
+  created() {
+    //Primero que se ejecuta en el DOM
+    this.leerToken()
+  
+  },
 };
 </script>
