@@ -14,6 +14,12 @@ const routes = [
     component: Home
   },
   {
+    path:'/administrador/index',
+    name: 'administrador',
+    component: administrador,
+    meta: {rutaProtegida: true}
+  },
+  {
     path: '/about',
     name: 'About',
     component: About,
@@ -25,11 +31,7 @@ const routes = [
     component: login,
    
   },
-  {
-    path:'/administrador/index',
-    name: 'administrador',
-    component: administrador
-  }
+  
 ]
 
 const router = new VueRouter({
@@ -43,6 +45,7 @@ router.beforeEach((to,from,next) => {
   //TODO: MODIFICAR TIEMPO DE VIDA DEL TOKEN
   //TODO: falta que me redireccione cuando se loguea
   const rutaEsProtegida = to.matched.some(item => item.meta.rutaProtegida)
+  console.log(store.state.token);
   if(rutaEsProtegida && store.state.token === null){
     next('/')
     //console.log("Es protegida")
